@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  restream-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      no_cache: true
+    container_name: restream-app
+    ports:
+      - "8080:8080"  # Web interface
+      - "8088:8088"  # Streaming output
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - STREAMS_PORT=8088
+      - LOG_LEVEL=info
+      - MAX_RECONNECT_ATTEMPTS=10
+      - RECONNECT_DELAY=5
+      - HEALTH_CHECK_INTERVAL=30
+      - HLS_SEGMENT_TIME=2
+      - HLS_LIST_SIZE=10
+      - FORCE_REBUILD=true
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    networks:
+      - restream-network
+
+networks:
+  restream-network:
+    driver: bridge
