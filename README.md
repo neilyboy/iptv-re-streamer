@@ -2,7 +2,7 @@
 
 A powerful IPTV stream re-broadcaster with monitoring and management capabilities, featuring a modern dark-themed UI. Designed to run in a Docker container on Ubuntu Server.
 
-![RestreamStream](https://user-images.githubusercontent.com/4341881/177691307-5c214876-20e7-4126-92a9-d919ab4f6e26.png)
+![RestreamStream](https://blah.png)
 
 ## Features
 
